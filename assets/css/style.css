@@ -1,0 +1,66 @@
+.navbarOverride {
+    float:none;
+    vertical-align:top;
+    text-align:center;
+    margin:2% 0 2%;
+    color:white;
+}
+
+
+.navbar-text{
+    background:rgb(4, 152, 250);
+    font-size: 40px;
+    color:white;
+    padding: 1%;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 30%;
+    border-radius:25px;
+}
+
+body{
+    background: url('https://upload.wikimedia.org/wikipedia/commons/f/f5/Photos_NewYork1_032.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+  }
+
+#hungManDiv{
+    width:100%;
+    border-radius:25px;
+}
+
+#gameContainer{
+    background:white;
+    border-radius: 25px;
+}
+
+.score{
+    margin-top:2%;
+    background:rgb(4, 152, 250);
+    border:solid black 1px;
+    overflow:auto;
+    color:white;
+}
+
+h1{
+    font-size:30px;
+    line-height:45px;
+}
+
+h3{
+    float:left;
+}
+
+#wins, #losses, #guessesRemaining, #guessesSoFar, p{
+    float:right;
+}
+
+.theWord{
+    margin-top:2%;
+    background:white;
+    border-radius:25px;
+    font-size: 40px;
+    text-align:center;
+
+}
