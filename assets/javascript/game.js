@@ -23,42 +23,49 @@
     var losses = 0;
     var userLossesText = document.getElementById("losses");
     var guessesRemaining = 8;
+    var guessesRemainingText = document.getElementById("guessesRemaining");
     var guessesSoFarText = document.getElementById("guessesSoFar");
+    
 
 // create a correct/incorrect guesseses arrays to have the user's guesses pushed accordingly
-var correctGuesses = [];
-var incorrectGuesses = [];
+    var correctGuesses = [];
+    var incorrectGuesses = [];
 
 //start tracking user key strokes
-document.onkeyup = function (event) {
-    //store user choice to key selected, and console to log to confirm
-    var userGuess = event.key;
-    //if user guess matches a letter of the secret word
-    if(secretWord.includes(userGuess)){
-    // add to the correctGuesses array
+    document.onkeyup = function (event) {
+    //store user choice to key selected
+        var userGuess = event.key;
+    //if user guess matches a letter of the secret word...
+        if(secretWord.includes(userGuess)){
+    // then push that letter to the correctGuesses array
         correctGuesses.push(userGuess);
-        console.log("correct guesses: " + correctGuesses);
-
+    // update the index of the underScores array that matches the index of the Secret word that the user guessed, to the user guess
         underScores[secretWord.indexOf(userGuess)] = userGuess;
-        console.log(correctGuesses);
+    // update the secret word text content, and join the secret word text using a space instead of commas that is default for array values
+        secretWordText.textContent = underScores.join(" ");
+        console.log(secretWordText);
+            // if(secretWordText === secretWord)
+
     }
     //else, add the incorrect userGuess to the incorrectGuesses array, update the GuessesSoFar text content in the HTML, and 
     // deduct one point from GuessesRemaining
-    else{
-    incorrectGuesses.push(userGuess);
-    console.log("incorrect guesses: " + incorrectGuesses);
-    guessesSoFarText.textContent = incorrectGuesses;
-    guessesRemaining--;
-    }
+        else{
+            incorrectGuesses.push(" " + userGuess);
+            console.log("incorrect guesses: " + incorrectGuesses);
+            guessesSoFarText.textContent = incorrectGuesses;
+            guessesRemaining--;
+            console.log(guessesRemaining);
+            guessesRemainingText.textContent = guessesRemaining;
+        }
 
-    if(guessesRemaining === 7) {document.getElementById("hungManDiv").src="assets/images/hung1.png";};
-    if(guessesRemaining === 6) {document.getElementById("hungManDiv").src="assets/images/hung2.png";};
-    if(guessesRemaining === 5) {document.getElementById("hungManDiv").src="assets/images/hung3.png";};
-    if(guessesRemaining === 4) {document.getElementById("hungManDiv").src="assets/images/hung4.png";};
-    if(guessesRemaining === 3) {document.getElementById("hungManDiv").src="assets/images/hung5.png";};
-    if(guessesRemaining === 2) {document.getElementById("hungManDiv").src="assets/images/hung6.png";};
-    if(guessesRemaining === 1) {document.getElementById("hungManDiv").src="assets/images/hung7.png";};
-    if(guessesRemaining === 0) {document.getElementById("hungManDiv").src="assets/images/hung8.png";};
+        if(guessesRemaining === 7) {document.getElementById("hungManDiv").src="assets/images/hung1.png";};
+        if(guessesRemaining === 6) {document.getElementById("hungManDiv").src="assets/images/hung2.png";};
+        if(guessesRemaining === 5) {document.getElementById("hungManDiv").src="assets/images/hung3.png";};
+        if(guessesRemaining === 4) {document.getElementById("hungManDiv").src="assets/images/hung4.png";};
+        if(guessesRemaining === 3) {document.getElementById("hungManDiv").src="assets/images/hung5.png";};
+        if(guessesRemaining === 2) {document.getElementById("hungManDiv").src="assets/images/hung6.png";};
+        if(guessesRemaining === 1) {document.getElementById("hungManDiv").src="assets/images/hung7.png";};
+        if(guessesRemaining === 0) {document.getElementById("hungManDiv").src="assets/images/hung8.png";};
 
 
 };
