@@ -48,13 +48,13 @@ function roundComplete(){
 
   if (lettersInSecretWord.toString() === underscoresAndSuccesses.toString()) {
     wins++;
-    alert("you win!");
+    // alert("you win!");
     document.getElementById("wins").innerHTML = wins;
     gameBegin();
   }
   else if (numGuesses === 0) {
     losses++;
-    alert("You lose!");
+    alert("You lose! The Secert word was: " + secretWord);
     document.getElementById("losses").innerHTML = losses;
     gameBegin();
   }
