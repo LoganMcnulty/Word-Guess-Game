@@ -48,7 +48,7 @@ function roundComplete(){
 
   if (lettersInSecretWord.toString() === underscoresAndSuccesses.toString()) {
     wins++;
-    // alert("you win!");
+    alert("you win!");
     document.getElementById("wins").innerHTML = wins;
     gameBegin();
   }
