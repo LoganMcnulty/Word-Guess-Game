@@ -1,79 +1,103 @@
-// create an array, and random word is chosen from array
-const stockWords = ["bull", "bear", "dividend", "earnings", "sector", "growth", "nasdaq", "broker", "options", "equity", "trend", "price"]
-var secretWord = stockWords[Math.floor(Math.random() * stockWords.length)];
-console.log(secretWord);
+// define global variables
+const stockWords = ["carfires", "einhorn", "sheep", "bankruptcy", "deliveries", "fud", "tslaq", "broke", "bagholder"]
+var secretWord = "";
+var lettersInSecretWord = [];
+var numUnderscores = 0;
+var underscoresAndSuccesses = [];
+var wrongGuesses = [];
+var letterGuessed = "";
 
-// create underscores based on length of the word
-var underScores = [];
-var underscoreGenerator = () => {
-    for(var i = 0; i <secretWord.length; i++) {
-        underScores.push("_");
-    }
-    return underScores;
-}
-
-//push  array to #secretWordInsert and generate underscores by calling underscoreGenerator function
-var secretWordText = document.getElementById("secretWordInsert");
-underscoreGenerator();
-secretWordText.textContent = underScores.join(" ");
-
-//game score variables and accompanying variables for updating the HTML
 var wins = 0;
-var userWinsText = document.getElementById("wins");
 var losses = 0;
-var userLossesText = document.getElementById("losses");
-var guessesRemaining = 8;
-var guessesRemainingText = document.getElementById("guessesRemaining");
-var guessesSoFarText = document.getElementById("guessesSoFar");
+var numGuesses = 9;
 
+alert("press any key on your keyboard to play");
 
-// create a correct/incorrect guesseses arrays to have the user's guesses pushed accordingly
-var correctGuesses = [];
-var incorrectGuesses = [];
+// define the start game function, basically this just resets everything, 
+// and doesn't have any logic outside of defining underscores and emptying arrays
 
-//start tracking user key strokes
-document.onkeyup = function (event) {
-//store user choice to key selected
-    var userGuess = event.key;
-//if user guess matches a letter of the secret word...
-    if(secretWord.includes(userGuess)){
-// then push that letter to the correctGuesses array
-    correctGuesses.push(userGuess);
-// using the user guess, update the index of the underScores array that matches the index of the Secret word that the user guessed
-    underScores[secretWord.indexOf(userGuess)] = userGuess;
-// update the secret word text content, and join the secret word text using a space instead of commas that is default for array values
-    secretWordText.textContent = underScores.join(" ");
-    console.log(secretWordText);
+function gameBegin() {
+    numGuesses = 9;
+    //choose word from stockWords array at random and reassign secretWord
+    secretWord = stockWords[Math.floor(Math.random() * stockWords.length)];
+    //splits letters in a string to sub strings and assign them to an array
+    lettersInSecretWord = secretWord.split("");
+    console.log(secretWord);
+    //assign number of underscores
+    numUnderscores = lettersInSecretWord.length;
+    underscoresAndSuccesses = [];
+    wrongGuesses = [];
+    //push underscores to place holder
+    for (var i = 0; i < numUnderscores; i++) {
+        underscoresAndSuccesses.push("_");
+      }
+
+    // push text to HTML
+    document.getElementById("guessesRemaining").innerHTML = numGuesses;
+    document.getElementById("secretWordInsert").innerHTML = underscoresAndSuccesses.join(" ");
+    document.getElementById("guessesSoFar").innerHTML = wrongGuesses.join(" ");
+    document.getElementById("hungManDiv").src="assets/images/hung.png";
 }
-//else, add the incorrect userGuess to the incorrectGuesses array, update the GuessesSoFar text content in the HTML, and 
-// deduct one point from GuessesRemaining
-    else{
-        incorrectGuesses.push(" " + userGuess);
-        console.log("incorrect guesses: " + incorrectGuesses);
-        guessesSoFarText.textContent = incorrectGuesses;
-        guessesRemaining--;
-        console.log(guessesRemaining);
-        guessesRemainingText.textContent = guessesRemaining;
+
+function roundComplete(){
+  console.log("wins: " + wins + " | losses: " + losses + " | Guesses: " + numGuesses);
+
+  document.getElementById("guessesRemaining").innerHTML = numGuesses;
+  document.getElementById("secretWordInsert").innerHTML = underscoresAndSuccesses.join(" ");
+  document.getElementById("guessesSoFar").innerHTML = wrongGuesses.join(" ");
+
+  if (lettersInSecretWord.toString() === underscoresAndSuccesses.toString()) {
+    wins++;
+    alert("you win!");
+    document.getElementById("wins").innerHTML = wins;
+    gameBegin();
+  }
+  else if (numGuesses === 0) {
+    losses++;
+    alert("You lose!");
+    document.getElementById("losses").innerHTML = losses;
+    gameBegin();
+  }
+}
+
+
+function checkGuesses(guess) {
+  var guessInWord = false;
+  //execute this once for each number of underscores in the secret word
+  for (var i = 0; i < numUnderscores; i++) {
+    //if an index of hte secret word = the letter input from the checkGuesses function
+    if (secretWord[i] === guess) {
+      guessInWord = true;
     }
+  }
 
-// code for updating the hangman image (probably redundant)
-    if(guessesRemaining === 7) {document.getElementById("hungManDiv").src="assets/images/hung1.png";};
-    if(guessesRemaining === 6) {document.getElementById("hungManDiv").src="assets/images/hung2.png";};
-    if(guessesRemaining === 5) {document.getElementById("hungManDiv").src="assets/images/hung3.png";};
-    if(guessesRemaining === 4) {document.getElementById("hungManDiv").src="assets/images/hung4.png";};
-    if(guessesRemaining === 3) {document.getElementById("hungManDiv").src="assets/images/hung5.png";};
-    if(guessesRemaining === 2) {document.getElementById("hungManDiv").src="assets/images/hung6.png";};
-    if(guessesRemaining === 1) {document.getElementById("hungManDiv").src="assets/images/hung7.png";};
-    if(guessesRemaining === 0) {
-        document.getElementById("hungManDiv").src="assets/images/hung8.png";
-        losses++;
-        console.log(losses);
-        userLossesText.textContent = losses;
-    };
-
-    if(secretWordText === secretWord){
-        console.log("you win");
+  if(guessInWord) {
+    for (var j = 0; j < numUnderscores; j++) {
+      if (secretWord[j] === guess) {
+        underscoresAndSuccesses[j] = guess;
+      }
     }
+  }
+
+  else {
+    wrongGuesses.push(guess);
+    numGuesses--;
+  }
+  if(numGuesses === 8) {document.getElementById("hungManDiv").src="assets/images/hung1.png";};
+  if(numGuesses === 7) {document.getElementById("hungManDiv").src="assets/images/hung2.png";};
+  if(numGuesses === 6) {document.getElementById("hungManDiv").src="assets/images/hung3.png";};
+  if(numGuesses === 5) {document.getElementById("hungManDiv").src="assets/images/hung4.png";};
+  if(numGuesses === 4) {document.getElementById("hungManDiv").src="assets/images/hung5.png";};
+  if(numGuesses === 3) {document.getElementById("hungManDiv").src="assets/images/hung6.png";};
+  if(numGuesses === 2) {document.getElementById("hungManDiv").src="assets/images/hung7.png";};
+  if(numGuesses === 1) {document.getElementById("hungManDiv").src="assets/images/hung8.png";};
+}
 
 
-};
+gameBegin();
+
+document.onkeyup=function(x){
+  letterGuessed = String.fromCharCode(x.which).toLowerCase();
+  checkGuesses(letterGuessed);
+  roundComplete();
+}

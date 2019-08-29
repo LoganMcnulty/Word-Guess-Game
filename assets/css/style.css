@@ -8,8 +8,9 @@
 
 
 .navbar-text{
-    background:rgb(4, 152, 250);
+    background:grey;
     font-size: 40px;
+    border: solid red 5px;
     color:white;
     padding: 1%;
     font-family: Arial, Helvetica, sans-serif;
@@ -18,7 +19,7 @@
 }
 
 body{
-    background: url('https://upload.wikimedia.org/wikipedia/commons/f/f5/Photos_NewYork1_032.jpg') no-repeat center center fixed;
+    background: url('https://hoshanarabbah.org/blog/wp-content/uploads/2016/05/Sheep-flock-1024x683.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
@@ -27,11 +28,13 @@ body{
 
 #hungManDiv{
     width:100%;
+    border: solid red 5px;
     border-radius:25px;
 }
 
 #gameContainer{
-    background:white;
+    background:grey;
+    border: solid red 5px;
     border-radius: 25px;
 }
 
@@ -57,10 +60,15 @@ h3{
 }
 
 .theWord{
-    margin-top:2%;
-    background:white;
+    margin:2% 0 2%;
+    background: grey;
     border-radius:25px;
     font-size: 40px;
     text-align:center;
+    border: solid red 5px;
 
+}
+
+#scroll{
+    height: 800px;
 }
