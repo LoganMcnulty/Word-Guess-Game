@@ -1,5 +1,5 @@
 // define global variables
-const stockWords = ["carfires", "einhorn", "sheep", "bankruptcy", "deliveries", "fud", "tslaq", "broke", "bagholder"]
+const stockWords = ["earnings","dividends","trends","price","nasdaq","portfolio","technology","investing","diversification","risk","reward"]
 var secretWord = "";
 var lettersInSecretWord = [];
 var numUnderscores = 0;
